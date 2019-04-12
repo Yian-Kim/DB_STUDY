@@ -1,4 +1,4 @@
--- hr > ex10_function.sql
+﻿-- hr > ex10_function.sql
 
 /*
 
@@ -367,19 +367,3 @@ select
         when jikwi in ('대리', '사원') then basicpay
     end)
 from tblinsa;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

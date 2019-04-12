@@ -1,4 +1,4 @@
--- hr > ex08_column.sql
+﻿-- hr > ex08_column.sql
 
 /*
 
@@ -107,23 +107,3 @@ select name, buseo, jikwi, sudang,
         when jikwi = '사원' then 0
     end as 추가수당
 from tblinsa;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

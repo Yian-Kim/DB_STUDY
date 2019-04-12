@@ -1,4 +1,4 @@
--- hr > ex11_function.sql
+﻿-- hr > ex11_function.sql
 
 /*
 
@@ -75,25 +75,3 @@ select
     floor(100 / 60) as 시,
     mod(100, 60) as 분
 from dual;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

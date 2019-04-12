@@ -1,4 +1,4 @@
--- hr > ex09_order.sql
+﻿-- hr > ex09_order.sql
 
 /*
 
@@ -47,39 +47,3 @@ select * from tblinsa where basicpay * 12 >= 20000000;
 
 
 select * from employees;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

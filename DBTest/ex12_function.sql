@@ -1,4 +1,4 @@
--- hr > ex12_function.sql
+﻿-- hr > ex12_function.sql
 
 /*
 
@@ -311,16 +311,3 @@ select
     (decode(substr(name, 1, 1), '최', 1)) as 최,
     (decode(substr(name, 1, 1), '정', 1)) as 정
 from tblinsa;
-
-
-
-
-
-
-
-
-
-
-
-
-

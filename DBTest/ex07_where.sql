@@ -1,4 +1,4 @@
--- hr > ex07_where.sql
+﻿-- hr > ex07_where.sql
 
 -- 조건절에 사용되는 구문들(연산자 or 절)
 
@@ -139,33 +139,3 @@ select * from tbltodo where completedate is null;
 
 -- 맘먹고 한일?
 select * from tbltodo where completedate is not null;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
