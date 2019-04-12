@@ -1,4 +1,4 @@
--- hr > ex05_operator.sql
+﻿-- hr > ex05_operator.sql
 
 /*
 
@@ -72,57 +72,3 @@ select nick as "select" from tblcomedian; -- 절대 비권장
 
 
 select height > weight from tblcomedian;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -1,4 +1,4 @@
--- ex04_select.sql
+﻿-- ex04_select.sql
 
 /*
 
@@ -59,16 +59,3 @@ select age from tblCountry;
 
 -- ORA-00942: table or view does not exist
 select name from tblCoutry;
-
-
-
-
-
-
-
-
-
-
-
-
-

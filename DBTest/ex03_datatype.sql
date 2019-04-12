@@ -1,4 +1,4 @@
--- ex03_datatype.sql
+﻿-- ex03_datatype.sql
 
 /*
 
@@ -150,16 +150,3 @@ insert into tblType (regdate) values (sysdate);
 --자바에서 숫자를 상수 표기? 10, 4.5
 --자바에서 문자열 상수 표기? "홍길동"
 --자바에서 문자 상수 표기? 'a'
-
-
-
-
-
-
-
-
-
-
-
-
-

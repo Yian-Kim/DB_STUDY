@@ -1,4 +1,4 @@
--- hr > ex06_where.sql
+﻿-- hr > ex06_where.sql
 
 /*
 
@@ -83,16 +83,3 @@ select * from tblcomedian where 1 = 1;
 -- 암호 : 1111' or 1=1
 select 결과 from 회원테이블 where id='hong' and pw='1111';
 select 결과 from 회원테이블 where id='hong' and pw='1111' or 1=1';
-
-
-
-
-
-
-
-
-
-
-
-
-
