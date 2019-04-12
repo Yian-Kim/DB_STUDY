@@ -467,7 +467,8 @@ select * from tblGenre g
             inner join tblRent r
                 on r.video = v.seq; --B 관계 선
 
-
+class GenreDTO {}
+class GenreVideoDTO {}
 
 select * from tblGenre g
     inner join tblVideo v
@@ -568,6 +569,153 @@ select
 12. tblGenre, tblVideo, tblRent, tblMember. 현재 반납을 안한 회원명과 비디오명, 대여날짜를 가져오시오.
 
 */
+
+-- 01. tblInsa. 
+-- A. 90년대생 남자 직원들의 평균 월급(basicpay)보다 
+-- B. 더 많이 받는 80년대생 여직원들을 가져오시오.
+-- A -> (값=1241133) -> (조건) -> B
+
+-- A.
+select avg(basicpay) from tblinsa
+    --where substr(ssn, 1, 1) = '9' and substr(ssn, 8, 1) = '1';
+    where ssn like '9%-1%';
+-- B.
+select * from tblinsa
+    where ssn like '8%-2%' and basicpay > (select avg(basicpay) from tblinsa
+                                                               where ssn like '9%-1%');
+
+
+-- 02. tblStaff, tblProject. 
+-- 현재 재직중인 모든 직원의 이름, 주소, 월급, 담당 프로젝트명을 가져오시오.
+-- tblStaff(이름, 주소, 월급)
+-- tblProject(담당 프로젝트명)
+
+-- 프로젝트 담당 직원만
+select s.name, s.address, s.salary, p.projectname from tblStaff s
+    inner join tblProject p
+        on s.seq = p.staffseq;
+
+-- 프로젝트 담당 유무와 관계없이 모든 직원
+select s.name, s.address, s.salary, p.projectname from tblStaff s
+    left outer join tblProject p
+        on s.seq = p.staffseq;
+
+
+-- 03. tblVideo, tblRent, tblMember. 
+-- '뽀뽀할까요'라는(tblVideo) 비디오를 빌려간 회원의 이름은(tblMember)?
+
+-- 서브쿼리
+select seq from tblVideo where name = '뽀뽀할까요';
+select member from tblRent where video = 5;
+select name from tblMember where seq = 5;
+
+select name from tblMember where seq = (select member from tblRent 
+                                            where video = (select seq from tblVideo 
+                                                                    where name = '영구와 땡칠이'));
+
+-- 조인
+select v.name, m.name from tblMember m
+    inner join tblRent r
+        on m.seq = r.member
+            inner join tblVideo v  
+                on v.seq = r.video
+                    where v.name = '뽀뽀할까요';
+
+
+
+-- 04. tblInsa. 
+-- 평균 이상의 월급을 받는 직원들을 가져오시오.
+select * from tblinsa
+    where basicpay >= (select avg(basicpay) from tblinsa);
+
+
+-- 05. tblStaff, tblProject. 
+-- '노조 협상' 프로젝트를 담당한 직원의 월급은?
+select * from tblStaff
+    where seq = (select staffseq from tblProject where projectname = '노조 협상');
+
+
+-- 06. tblMember. 
+-- 가장 나이가 많은 회원의 주소?(byear)
+select * from tblMember where byear = (select min(byear) from tblMember);
+select * from tblMember where byear = (select max(byear) from tblMember);
+
+
+-- 07. tblVideo, tblRent, tblMember. 
+-- '털미네이터'를 빌려갔던 회원들의 이름은?
+
+select m.name from tblMember m
+    inner join tblRent r
+        on m.seq = r.member
+            inner join tblVideo v
+                on v.seq = r.video
+                    where v.name = '털미네이터';
+
+
+
+-- 08. tblStaff, tblProject. 
+-- '서울시'에 사는 직원을 제외한 나머지 직원들의 이름, 월급, 담당 프로젝트명을 가져오시오.
+select s.name, s.salary, p.projectname from tblStaff s
+    inner join tblProject p
+        on s.seq = p.staffseq
+            where address <> '서울시';
+
+
+
+-- 09. tblCustomer, tblSales. 
+-- 상품을 2개(qty) 이상 구매한 회원의 연락처, 이름, 구매상품명, 수량을 가져오시오.
+select c.name, c.tel, s.item, s.qty from tblCustomer c
+    inner join tblSales s
+        on c.seq = s.customerseq
+            where qty >= 2;
+
+
+
+
+--10. tblVideo, tblGenre. 
+-- 모든 비디오의 제목과 보유수량, 대여 가격을 가져오시오.
+-- 모든 비디오의 제목과 보유수량, 현재 수량(???), 대여 가격을 가져오시오.
+select v.name, v.qty, g.price from tblVideo v
+    inner join tblGenre g
+        on g.seq = v.genre;
+
+
+select v.name, g.price, v.qty as "보유 수량",
+v.qty - (select count(*) from tblRent where video = v.seq and retdate is null) as "현재 수량", 
+(select count(*) from tblRent where video = v.seq and retdate is null) as "대여 중"
+    from tblVideo v
+        inner join tblGenre g
+            on g.seq = v.genre;
+
+
+
+--11. tblGenre, tblVideo, tblRent, tblMember. 
+-- 2007년 2월에 대여된 구매내역을 가져오시오.
+-- 회원명, 비디오명, 언제, 대여가격
+select m.name, v.name, r.rentdate, g.price from tblGenre g
+    inner join tblVideo v
+        on g.seq = v.genre
+            inner join tblRent r
+                on v.seq = r.video
+                    inner join tblMember m
+                        on m.seq = r.member
+                            where to_char(r.rentdate, 'yyyymm') = '200702';
+
+
+
+--12. tblVideo, tblRent, tblMember. 
+--현재 반납을 안한 회원명과 비디오명, 대여날짜를 가져오시오.
+select m.name, v.name, r.rentdate from tblVideo v
+            inner join tblRent r
+                on v.seq = r.video
+                    inner join tblMember m
+                        on m.seq = r.member
+                            where r.retdate is null;
+
+
+
+
+
 
 
 
